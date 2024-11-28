@@ -12,20 +12,20 @@
     "directories": {
       "output": "dist"
     },
-    "asar": true, 
+    "asar": true,
     "extraMetadata": {
       "main": "src/main/main.js"
     },
     "files": [
-      "main.js",            
+      "main.js",
       "package.json",
       "styles.css",
       "index.html",
       "assets/**/*",
-      "src/**/*"          
+      "src/**/*"
     ],
-    "win": {               
-      "target": "nsis"       
+    "win": {
+      "target": "nsis"
     }
   },
   "author": "Juan Pablo Marquez",
@@ -33,5 +33,8 @@
   "devDependencies": {
     "electron": "^33.2.0",
     "electron-builder": "^25.1.8"
+  },
+  "dependencies": {
+    "pdf-lib": "^1.17.1"
   }
 }
