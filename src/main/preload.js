@@ -66,39 +66,31 @@ contextBridge.exposeInMainWorld('electronAPI', {
     return pdfBytes;
   },
   openFile: async () => await ipcRenderer.invoke("dialog:openFile"),
-  // openFile: async () => {
-  //     const [fileHandle] = await window.showOpenFilePicker({
-  //       types: [
-  //         {
-  //           description: "PDF Files",
-  //           accept: { "application/pdf": [".pdf"] },
-  //         },
-  //       ],
-  //     });
-  //     const file = await fileHandle.getFile();
-  //     return file;
-  //   },
-  saveFile2: async (pdfBytes,signatureImageBytes) => {
-
-  const pdfDoc = await PDFDocument.load(pdfBytes);
-  const pages = pdfDoc.getPages();
-  const firstPage = pages[0];
-
-  // Dimensiones de la imagen de firma
-  const signatureImage = await pdfDoc.embedPng(signatureImageBytes); // Usa embedPng; usa embedJpg si es JPEG
-  const signatureDims = signatureImage.scale(0.5);
-     // Posicionar la firma en el PDF (ajusta las coordenadas según sea necesario)
-  firstPage.drawImage(signatureImage, {
-    x: 50,
-    y: 50,
-    width: signatureDims.width,
-    height: signatureDims.height,
-  });
+  saveFile2: async (pdfBytes, signatureImageBytes) => {
+    // Cargar el documento PDF
+    const pdfDoc = await PDFDocument.load(pdfBytes);
+    const pages = pdfDoc.getPages();
+  
+    // Embeder la imagen de firma
+    const signatureImage = await pdfDoc.embedPng(signatureImageBytes); // Usa embedPng o embedJpg según corresponda
+    // const signatureDims = signatureImage.scale(0.2);
+  
+    // Iterar por todas las páginas
+    pages.forEach((page) => {
+      // Dibujar la imagen en cada página (ajusta las coordenadas según sea necesario)
+      page.drawImage(signatureImage, {
+        x: 50, // Coordenada X
+        y: 20, // Coordenada Y
+        width: 100,
+        height: 40,
+      });
+    });
   
     // Guardar el PDF modificado
     const modifiedPdfBytes = await pdfDoc.save();
     const blob = new Blob([modifiedPdfBytes], { type: "application/pdf" });
-    // await window.electronAPI.saveFile2(blob);
+  
+    // Mostrar el diálogo para guardar el archivo
     alert("PDF guardado con firma.");
     const handle = await window.showSaveFilePicker({
       suggestedName: "documento_firmado.pdf",
@@ -109,10 +101,12 @@ contextBridge.exposeInMainWorld('electronAPI', {
         },
       ],
     });
+  
+    // Escribir el archivo modificado
     const writable = await handle.createWritable();
     await writable.write(blob);
     await writable.close();
-    }
+  }
   },
 );
 
