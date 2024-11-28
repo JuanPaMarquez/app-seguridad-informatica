@@ -16,8 +16,10 @@ document.getElementById("searchButton").addEventListener("click", async () => {
         // Mostrar el botón de generar PDF si se encontraron archivos
         if (files.length) {
             document.getElementById("generatePdfButton").style.display = "block";
+            document.getElementById("nameForense").style.display = "block";
         } else {
             document.getElementById("generatePdfButton").style.display = "none";
+            document.getElementById("nameForense").style.display = "none";
         }
 
         // Guardar la lista de archivos en una variable global
@@ -30,6 +32,7 @@ document.getElementById("searchButton").addEventListener("click", async () => {
 
 document.getElementById("generatePdfButton").addEventListener("click", async () => {
     const files = window.foundFiles;
+    const nameForense = document.getElementById("nameForense").value; // Leer el nombre del forense
     if (!files || !files.length) {
         alert("No hay archivos para generar el PDF.");
         return;
@@ -49,7 +52,7 @@ document.getElementById("generatePdfButton").addEventListener("click", async () 
     }
 
     // Crear el PDF usando la función expuesta por contextBridge
-    const pdfBytes = await window.electronAPI.createPdf(files);
+    const pdfBytes = await window.electronAPI.createPdf(files, nameForense);
 
     // Guardar el PDF en la ruta especificada
     await window.electronAPI.saveFile(filePath, pdfBytes);

@@ -8,11 +8,17 @@
 </head>
 <body>
     <h1>Buscar Archivos</h1>
-    <input type="text" id="searchPath" placeholder="Introduce la ruta de búsqueda">
-    <button id="searchButton">Buscar Archivos</button>
-    <button id="generatePdfButton" style="display: none;">Generar PDF</button>
+    <div class="containerSearch">
+        <input type="text" id="searchPath" placeholder="Introduce la ruta de búsqueda">
+        <button id="searchButton">🔍</button>
+    </div>
     <div id="containerFiles">
         <div id="files"></div>
+    </div>
+    
+    <div class="containerSearch">
+        <input type="text" id="nameForense" style="display: none;" placeholder="Introduce nombre del forense">
+        <button id="generatePdfButton" style="display: none;">Generar PDF</button>
     </div>
 
     <script src="./rendererFind.js"></script>
