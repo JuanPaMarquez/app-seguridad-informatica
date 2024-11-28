@@ -1,6 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require("path");
-const { searchFilesInDrives } = require("./searchFiles");
+const { searchFilesInPath } = require("./searchFiles");
 
 let mainWindow
 let secondWindow
@@ -44,6 +44,9 @@ ipcMain.on('open-find-Data', () => {
     findData = new BrowserWindow({
       width: 800,
       height: 600,
+      webPreferences: {
+        preload: path.join(__dirname, 'preload.js')
+      }
     })
 
     findData.loadFile('src/layouts/findData/findarchivos.html')
@@ -53,7 +56,12 @@ ipcMain.on('open-find-Data', () => {
     })
   }
 })
-ipcMain.handle("search-files", async () => {
-  const results = searchFilesInDrives();
-  return results;
+ipcMain.handle("search-files", async (event, searchPath) => {
+  try {
+    const results = searchFilesInPath(searchPath);
+    return results;
+  } catch (error) {
+    console.error('Error al buscar archivos:', error.message);
+    return [];
+  }
 })

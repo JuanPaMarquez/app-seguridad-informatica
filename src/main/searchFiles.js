@@ -10,7 +10,23 @@ const findFiles = (dir, fileList = []) => {
         const files = fs.readdirSync(dir);
         files.forEach((file) => {
             const filePath = path.join(dir, file);
-            const stats = fs.statSync(filePath);
+            let stats;
+            try {
+                stats = fs.statSync(filePath);
+            } catch (err) {
+                if (err.code === 'EPERM') {
+                    console.error(`Permiso denegado al acceder a ${filePath}`);
+                } else {
+                    console.error(`Error al obtener estadísticas de ${filePath}:`, err.message);
+                }
+                return;
+            }
+
+            // Excluir directorios protegidos
+            if (filePath.includes('$Recycle.Bin') || filePath.includes('Archivos de programa') || filePath.includes('Documents and Settings')) {
+                console.log(`Excluyendo directorio protegido: ${filePath}`);
+                return; // Salir si es un directorio protegido
+            }
 
             if (stats.isDirectory()) {
                 findFiles(filePath, fileList); // Recursión para subdirectorios
@@ -19,25 +35,27 @@ const findFiles = (dir, fileList = []) => {
             }
         });
     } catch (err) {
-        console.error(`Error leyendo el directorio ${dir}:`, err.message);
+        if (err.code === 'ENOENT') {
+            console.error(`El directorio ${dir} no existe:`, err.message);
+        } else {
+            console.error(`Error leyendo el directorio ${dir}:`, err.message);
+        }
     }
     return fileList;
 };
 
 // Función principal para buscar en todos los discos
-const searchFilesInDrives = () => {
-    const drives = os.platform() === "win32"
-        ? ["C:\\", "D:\\", "E:\\", "F:\\"] // Ajusta según tus necesidades
-        : ["/"]; // En sistemas UNIX se buscaría desde el raíz "/"
-
+const searchFilesInPath = (searchPath) => {
+    console.log(`Buscando en: ${searchPath}`);
     let foundFiles = [];
-    drives.forEach((drive) => {
-        console.log(`Buscando en: ${drive}`);
-        foundFiles = foundFiles.concat(findFiles(drive));
-    });
-
+    try {
+        foundFiles = findFiles(searchPath);
+    } catch (err) {
+        console.error(`Error leyendo el directorio ${searchPath}:`, err.message);
+    }
     return foundFiles;
 };
 
+
 // Exportar función
-module.exports = { searchFilesInDrives };
+module.exports = { searchFilesInPath };

@@ -7,7 +7,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            background-color: #2c3e50;
+            color: #ecf0f1;
         }
         h1 {
             text-align: center;
@@ -15,8 +16,20 @@
         #files {
             margin-top: 20px;
         }
+        #searchPath{
+            display: block;
+            margin: 35px auto;
+            height: 20px;
+            width: 50%;
+            font-size: 15px;
+            text-align: center;
+            font-family: sans-serif;
+            border-radius: 10px;
+            
+        }
         .file {
             background: #f9f9f9;
+            color: black;
             margin: 5px 0;
             padding: 10px;
             border: 1px solid #ccc;
@@ -25,16 +38,23 @@
         button {
             display: block;
             margin: 20px auto;
+            background-color: #16a085;
+            border: none;
+            border-radius: 5px;
             padding: 10px 20px;
+            color: white;
             font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
     </style>
 </head>
 <body>
     <h1>Buscar Archivos</h1>
+    <input type="text" id="searchPath" placeholder="Introduce la ruta de búsqueda">
     <button id="searchButton">Buscar Archivos</button>
     <div id="files">Haz clic en el botón para iniciar la búsqueda.</div>
 
-    <script src="renderer.js"></script>
+    <script src="./rendererFind.js"></script>
 </body>
 </html>
