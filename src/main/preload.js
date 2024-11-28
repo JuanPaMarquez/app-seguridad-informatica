@@ -78,26 +78,22 @@ contextBridge.exposeInMainWorld('electronAPI', {
   //     const file = await fileHandle.getFile();
   //     return file;
   //   },
-  saveFile2: async (pdfBytes) => {
+  saveFile2: async (pdfBytes,signatureImageBytes) => {
 
-    const pdfDoc = await PDFDocument.load(pdfBytes);
-    const pages = pdfDoc.getPages();
-    const firstPage = pages[0];
-  
-    // Convertir la firma del lienzo a una imagen
-    const signatureDataUrl = signaturePad.toDataURL();
-    const signatureImage = await pdfDoc.embedPng(signatureDataUrl);
-  
-    // Dimensiones de la imagen de firma
-    const signatureDims = signatureImage.scale(0.5);
-  
-    // Agregar la firma a la primera página
-    firstPage.drawImage(signatureImage, {
-      x: 50,
-      y: 50,
-      width: signatureDims.width,
-      height: signatureDims.height,
-    });
+  const pdfDoc = await PDFDocument.load(pdfBytes);
+  const pages = pdfDoc.getPages();
+  const firstPage = pages[0];
+
+  // Dimensiones de la imagen de firma
+  const signatureImage = await pdfDoc.embedPng(signatureImageBytes); // Usa embedPng; usa embedJpg si es JPEG
+  const signatureDims = signatureImage.scale(0.5);
+     // Posicionar la firma en el PDF (ajusta las coordenadas según sea necesario)
+  firstPage.drawImage(signatureImage, {
+    x: 50,
+    y: 50,
+    width: signatureDims.width,
+    height: signatureDims.height,
+  });
   
     // Guardar el PDF modificado
     const modifiedPdfBytes = await pdfDoc.save();

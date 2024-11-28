@@ -2,27 +2,12 @@ const signaturePad = document.getElementById("signaturePad");
 const loadPdfButton = document.getElementById("loadPdf");
 const savePdfButton = document.getElementById("savePdf");
 const clearSignature = document.getElementById("clearSignature");
-const ctx = signaturePad.getContext("2d");
+const signatureInput = document.getElementById("signatureInput");
 let pdfBytes = null;
 
 // Configurar el lienzo para dibujar la firma
 let drawing = false;
-
-signaturePad.addEventListener("mousedown", () => (drawing = true));
-signaturePad.addEventListener("mouseup", () => (drawing = false));
-signaturePad.addEventListener("mousemove", (e) => {
-  if (!drawing) return;
-  const rect = signaturePad.getBoundingClientRect();
-  const x = e.clientX - rect.left;
-  const y = e.clientY - rect.top;
-  ctx.lineWidth = 2;
-  ctx.lineCap = "round";
-  ctx.strokeStyle = "black";
-  ctx.lineTo(x, y);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(x, y);
-});
+let signatureImageBytes = null;
 
 clearSignature.addEventListener("click", () => {
   ctx.clearRect(0, 0, signaturePad.width, signaturePad.height);
@@ -34,7 +19,6 @@ loadPdfButton.addEventListener("click", async () => {
     alert("No se seleccionó ningún archivo.");
     return;
   }
-
   // Leer el archivo seleccionado
   const response = await fetch(`file://${filePath}`);
   const arrayBuffer = await response.arrayBuffer();
@@ -43,10 +27,25 @@ loadPdfButton.addEventListener("click", async () => {
   alert("PDF cargado correctamente.");
 });
 
+signatureInput.addEventListener("change", async (event) => {
+  const file = event.target.files[0];
+  if (!file) {
+    alert("No se seleccionó ninguna imagen.");
+    return;
+  }
+  // Leer la imagen como bytes
+  const reader = new FileReader();
+  reader.onload = () => {
+    signatureImageBytes = new Uint8Array(reader.result);
+    alert("Imagen de firma cargada correctamente.");
+  };
+  reader.readAsArrayBuffer(file);
+});
+
 savePdfButton.addEventListener("click", async () => {
   if (!pdfBytes) {
     alert("Por favor, carga un PDF primero.");
     return;
   }
-  await window.electronAPI.saveFile2(pdfBytes)
+  await window.electronAPI.saveFile2(pdfBytes,signatureImageBytes)
 });
