@@ -100,3 +100,15 @@ body {
   #copyGeneratedPassword:hover {
     background-color: #27ae60;
   }
+
+::-webkit-scrollbar{
+  width: 10px;
+}
+::-webkit-scrollbar-track{
+  background: black;
+}
+::-webkit-scrollbar-thumb{
+  background: #149174;
+  border-radius: 12px;
+  border: 3px solid #149174;
+}
