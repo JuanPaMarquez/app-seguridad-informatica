@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firmar PDF</title>
+  <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+    <div>
+        <h1>Agregar Firma Digital</h1>
+        <button id="loadPdf">Cargar PDF</button>
+        <br><br>
+        <label>Escribe tu firma:</label><br>
+        <canvas id="signaturePad" width="400" height="200" style="border:1px solid black;"></canvas>
+        <br>
+        <button id="clearSignature">Borrar Firma</button>
+        <br><br>
+        <button id="savePdf">Guardar PDF con Firma</button>
+    </div>
+        <script src="renderer.js"></script>
+</body>
+</html>

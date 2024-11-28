@@ -1,0 +1,114 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  .container {
+    text-align: center;
+    background-color: #34495e;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    width: 300px;
+  }
+  
+  h1 {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid #16a085;
+    border-radius: 5px;
+    background-color: #ecf0f1;
+    color: #2c3e50;
+  }
+  
+  button {
+    background-color: #16a085;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #1abc9c;
+  }
+  
+  button:active {
+    background-color: #149174;
+  }
+  
+  p {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  .password-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  #password {
+    flex: 1;
+  }
+  
+  #togglePassword {
+    background: none;
+    border: none;
+    color: #ecf0f1;
+    cursor: pointer;
+    font-size: 16px;
+    position: absolute;
+    right: 10px;
+    padding: 0;
+    transition: color 0.3s;
+  }
+  
+  #togglePassword:hover {
+    color: #1abc9c;
+  }
+  #passwordGenerated {
+    flex: 1;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  #copyGeneratedPassword {
+    background-color: #2ecc71;
+  }
+  
+  #copyGeneratedPassword:hover {
+    background-color: #27ae60;
+  }
+
+::-webkit-scrollbar{
+  width: 10px;
+}
+::-webkit-scrollbar-track{
+  background: black;
+}
+::-webkit-scrollbar-thumb{
+  background: #149174;
+  border-radius: 12px;
+  border: 3px solid #149174;
+}

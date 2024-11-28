@@ -6,6 +6,7 @@ const { searchFilesInPath } = require("./searchFiles");
 let mainWindow
 let secondWindow
 let findData
+let firmadigital
 
 function createMainWindow() {
   mainWindow = new BrowserWindow({
@@ -94,3 +95,18 @@ ipcMain.handle('save-file', async (event, filePath, data) => {
       return false;
   }
 });
+
+ipcMain.on("open-firmadigital", () => {
+  firmadigital = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      preload: path.join(__dirname, "preload.js"),
+      contextIsolation: true,
+      nodeIntegration: false,
+    },
+  });
+
+  firmadigital.loadFile("src/layouts/firmadigital/firmadigital.html");
+});
+

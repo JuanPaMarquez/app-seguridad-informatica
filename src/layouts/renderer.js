@@ -3,5 +3,10 @@ document.getElementById('open-window-btn').addEventListener('click', () => {
 })
 
 document.getElementById('open-find-data-button').addEventListener('click', () => {
-  window.electronAPI.openfindData()
+  window.electronAPI.openfindData() 
+})
+
+document.getElementById('open-firmadigital-button').addEventListener('click', () => {
+  window.electronAPI.openfirmadigital()
+  
 })
