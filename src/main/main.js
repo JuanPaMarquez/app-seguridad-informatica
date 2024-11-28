@@ -103,10 +103,23 @@ ipcMain.on("open-firmadigital", () => {
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
       contextIsolation: true,
-      nodeIntegration: false,
+      nodeIntegration: true,
     },
   });
 
   firmadigital.loadFile("src/layouts/firmadigital/firmadigital.html");
+});
+// Manejar la selección de archivos
+ipcMain.handle("dialog:openFile", async () => {
+  const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow, {
+    filters: [{ name: "PDF Files", extensions: ["pdf"] }],
+    properties: ["openFile"],
+  });
+
+  if (canceled) {
+    return null;
+  } else {
+    return filePaths[0];
+  }
 });
 

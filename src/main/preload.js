@@ -8,6 +8,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   findData: (searchPath) => ipcRenderer.invoke('search-files', searchPath), // Aceptar la ruta de búsqueda como argumento
   showSaveDialog: (options) => ipcRenderer.invoke('show-save-dialog', options),
   saveFile: (filePath, data) => ipcRenderer.invoke('save-file', filePath, data),
+
   createPdf: async (files) => {
     const pdfDoc = await PDFDocument.create();
     let page = pdfDoc.addPage(); // Cambiar const a let
@@ -64,31 +65,57 @@ contextBridge.exposeInMainWorld('electronAPI', {
     const pdfBytes = await pdfDoc.save();
     return pdfBytes;
   },
-  openFile: async () => {
-      const [fileHandle] = await window.showOpenFilePicker({
-        types: [
-          {
-            description: "PDF Files",
-            accept: { "application/pdf": [".pdf"] },
-          },
-        ],
-      });
-      const file = await fileHandle.getFile();
-      return file;
-    },
-    saveFile: async (blob) => {
-      const handle = await window.showSaveFilePicker({
-        suggestedName: "documento_firmado.pdf",
-        types: [
-          {
-            description: "PDF Files",
-            accept: { "application/pdf": [".pdf"] },
-          },
-        ],
-      });
-      const writable = await handle.createWritable();
-      await writable.write(blob);
-      await writable.close();
+  openFile: async () => await ipcRenderer.invoke("dialog:openFile"),
+  // openFile: async () => {
+  //     const [fileHandle] = await window.showOpenFilePicker({
+  //       types: [
+  //         {
+  //           description: "PDF Files",
+  //           accept: { "application/pdf": [".pdf"] },
+  //         },
+  //       ],
+  //     });
+  //     const file = await fileHandle.getFile();
+  //     return file;
+  //   },
+  saveFile2: async (pdfBytes) => {
+
+    const pdfDoc = await PDFDocument.load(pdfBytes);
+    const pages = pdfDoc.getPages();
+    const firstPage = pages[0];
+  
+    // Convertir la firma del lienzo a una imagen
+    const signatureDataUrl = signaturePad.toDataURL();
+    const signatureImage = await pdfDoc.embedPng(signatureDataUrl);
+  
+    // Dimensiones de la imagen de firma
+    const signatureDims = signatureImage.scale(0.5);
+  
+    // Agregar la firma a la primera página
+    firstPage.drawImage(signatureImage, {
+      x: 50,
+      y: 50,
+      width: signatureDims.width,
+      height: signatureDims.height,
+    });
+  
+    // Guardar el PDF modificado
+    const modifiedPdfBytes = await pdfDoc.save();
+    const blob = new Blob([modifiedPdfBytes], { type: "application/pdf" });
+    // await window.electronAPI.saveFile2(blob);
+    alert("PDF guardado con firma.");
+    const handle = await window.showSaveFilePicker({
+      suggestedName: "documento_firmado.pdf",
+      types: [
+        {
+          description: "PDF Files",
+          accept: { "application/pdf": [".pdf"] },
+        },
+      ],
+    });
+    const writable = await handle.createWritable();
+    await writable.write(blob);
+    await writable.close();
     }
   },
 );

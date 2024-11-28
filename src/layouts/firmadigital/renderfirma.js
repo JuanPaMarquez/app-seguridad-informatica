@@ -29,9 +29,17 @@ clearSignature.addEventListener("click", () => {
 });
 
 loadPdfButton.addEventListener("click", async () => {
-  const file = await window.electronAPI.openFile();
-  const arrayBuffer = await file.arrayBuffer();
+  const filePath = await window.electronAPI.openFile();
+  if (!filePath) {
+    alert("No se seleccionó ningún archivo.");
+    return;
+  }
+
+  // Leer el archivo seleccionado
+  const response = await fetch(`file://${filePath}`);
+  const arrayBuffer = await response.arrayBuffer();
   pdfBytes = new Uint8Array(arrayBuffer);
+
   alert("PDF cargado correctamente.");
 });
 
@@ -40,30 +48,5 @@ savePdfButton.addEventListener("click", async () => {
     alert("Por favor, carga un PDF primero.");
     return;
   }
-
-  const { PDFDocument } = await import("pdf-lib");
-  const pdfDoc = await PDFDocument.load(pdfBytes);
-  const pages = pdfDoc.getPages();
-  const firstPage = pages[0];
-
-  // Convertir la firma del lienzo a una imagen
-  const signatureDataUrl = signaturePad.toDataURL();
-  const signatureImage = await pdfDoc.embedPng(signatureDataUrl);
-
-  // Dimensiones de la imagen de firma
-  const signatureDims = signatureImage.scale(0.5);
-
-  // Agregar la firma a la primera página
-  firstPage.drawImage(signatureImage, {
-    x: 50,
-    y: 50,
-    width: signatureDims.width,
-    height: signatureDims.height,
-  });
-
-  // Guardar el PDF modificado
-  const modifiedPdfBytes = await pdfDoc.save();
-  const blob = new Blob([modifiedPdfBytes], { type: "application/pdf" });
-  await window.electronAPI.saveFile(blob);
-  alert("PDF guardado con firma.");
+  await window.electronAPI.saveFile2(pdfBytes)
 });
