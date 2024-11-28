@@ -9,7 +9,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   saveFile: (filePath, data) => ipcRenderer.invoke('save-file', filePath, data),
   createPdf: async (files) => {
     const pdfDoc = await PDFDocument.create();
-    const page = pdfDoc.addPage();
+    let page = pdfDoc.addPage(); // Cambiar const a let
     const { width, height } = page.getSize();
     const fontSize = 12;
     const margin = 50;
@@ -46,7 +46,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
       const lines = splitTextIntoLines(`${index + 1}. ${file}`, maxLineWidth);
       lines.forEach(line => {
         if (yPosition < margin + lineHeight) {
-          page = pdfDoc.addPage();
+          page = pdfDoc.addPage(); // Reasignar la variable page
           yPosition = height - margin;
         }
         page.drawText(line, {
