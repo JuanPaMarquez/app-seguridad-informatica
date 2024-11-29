@@ -1,65 +1,65 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #2c3e50; /* Fondo oscuro */
-    color: #ecf0f1; /* Texto claro */
+    background-color: #2c3e50; 
+    color: #ecf0f1; 
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0; /* Eliminar márgenes para centrar mejor */
+    margin: 0; 
 }
 
 .container {
     text-align: center;
-    background-color: #34495e; /* Fondo de contenedor */
+    background-color: #34495e; 
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    width: 80%; /* Ancho reducido del contenedor */
-    max-width: 500px; /* Tamaño máximo del contenedor */
-    margin: auto 0; /* Centrar verticalmente */
+    width: 80%; 
+    max-width: 500px; 
+    margin: auto 0; 
 }
 
 h1 {
     margin-bottom: 20px;
-    font-size: 20px; /* Tamaño aumentado del texto */
+    font-size: 20px; 
 }
 
 label {
-    font-size: 14px; /* Tamaño aumentado del texto */
+    font-size: 14px; 
     font-weight: bold;
     color: #ecf0f1;
-    display: block; /* Asegura que los labels ocupen toda la línea */
-    text-align: center; /* Centra el texto */
+    display: block; 
+    text-align: center; 
 }
 
 select, button {
-    width: 70%; /* Ancho reducido de los botones */
-    padding: 8px; /* Tamaño reducido del padding */
-    margin: 8px 0; /* Tamaño reducido del margen */
+    width: 70%; 
+    padding: 8px; 
+    margin: 8px 0; 
     border: 2px solid #16a085;
     border-radius: 5px;
     background-color: #ecf0f1;
     color: #2c3e50;
-    font-size: 14px; /* Tamaño aumentado del texto */
-    display: block; /* Asegura que los elementos ocupen toda la línea */
+    font-size: 14px; 
+    display: block; 
     margin-left: auto;
-    margin-right: auto; /* Centra los elementos */
+    margin-right: auto; 
 }
 
 button {
-    background-color: #16a085; /* Botón verde */
+    background-color: #16a085; 
     border: none;
     border-radius: 5px;
-    padding: 8px 16px; /* Tamaño reducido del padding */
+    padding: 8px 16px; 
     color: white;
-    font-size: 14px; /* Tamaño aumentado del texto */
+    font-size: 14px; 
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
 button:hover {
-    background-color: #1abc9c; /* Botón verde oscuro */
+    background-color: #1abc9c; 
 }
 
 button:active {
@@ -70,12 +70,12 @@ button:active {
     margin-top: 20px;
     font-weight: bold;
     color: #ecf0f1;
-    font-size: 14px; /* Tamaño aumentado del texto */
+    font-size: 14px; 
 }
 
 .button-container {
     display: flex;
-    justify-content: center; /* Centra los botones */
+    justify-content: center; 
     gap: 10px;
     margin-top: 10px;
     flex-wrap: wrap;
