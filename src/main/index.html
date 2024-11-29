@@ -4,16 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ventana Principal</title>
+  <link rel="stylesheet" href="./styles/main.css">
 </head>
 <body>
-  <h1>Esta es la ventana principal</h1>
-  <p>Esta ventana contiene un enlace que abre una ventana secundaria</p>
-  <button id="open-window-btn">Verify Password</button>
-  <p>Necesitas buscar archivos= ↓↓↓DA CLICK AQUI↓↓↓</p>
-  <button id="open-find-data-button">Buscar archivos por extension</button>
-  <p>Firma tus documentos!!!</p>
-  <button id="open-firmadigital-button">Firma Digital</button>
-  <script src="../layouts/renderer.js"></script>
+  <main>
+    <div class="buttonsTop">
+      <button id="open-window-btn">Verify Password</button>
+      <button id="open-find-data-button">Buscar archivos por extension</button>
+    </div>
 
+    <div class="titleApp">
+      <h1>Esta es la ventana principal</h1>
+    </div>
+    
+    <div class="buttonsBottom">
+      <button id="open-firmadigital-button">Firma Digital</button>
+      <button id="open-cleanDisk">Formatear disco</button>
+    </div>
+  </main>
+  <script src="../layouts/renderer.js"></script>
 </body>
 </html>

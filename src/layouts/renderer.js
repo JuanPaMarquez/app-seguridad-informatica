@@ -8,5 +8,8 @@ document.getElementById('open-find-data-button').addEventListener('click', () =>
 
 document.getElementById('open-firmadigital-button').addEventListener('click', () => {
   window.electronAPI.openfirmadigital()
-  
+})
+
+document.getElementById('open-cleanDisk').addEventListener('click', () => {
+  window.electronAPI.opencleanDisk()
 })

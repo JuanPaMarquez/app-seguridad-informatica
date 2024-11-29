@@ -1,10 +1,12 @@
 const { contextBridge, ipcRenderer } = require('electron');
 const { PDFDocument, rgb, StandardFonts } = require('pdf-lib');
+const { exec } = require('child_process');
 
 contextBridge.exposeInMainWorld('electronAPI', {
   openSecondWindow: () => ipcRenderer.send('open-second-window'),
   openfindData: () => ipcRenderer.send('open-find-Data'),
   openfirmadigital: () => ipcRenderer.send('open-firmadigital'),
+  opencleanDisk: () => ipcRenderer.send('open-cleanDisk'),
   findData: (searchPath) => ipcRenderer.invoke('search-files', searchPath), // Aceptar la ruta de búsqueda como argumento
   showSaveDialog: (options) => ipcRenderer.invoke('show-save-dialog', options),
   saveFile: (filePath, data) => ipcRenderer.invoke('save-file', filePath, data),
@@ -128,8 +130,8 @@ contextBridge.exposeInMainWorld('electronAPI', {
     const writable = await handle.createWritable();
     await writable.write(blob);
     await writable.close();
-  }
   },
+}
 );
 
 

@@ -7,6 +7,7 @@ let mainWindow
 let secondWindow
 let findData
 let firmadigital
+let cleanDisk
 
 function createMainWindow() {
   mainWindow = new BrowserWindow({
@@ -108,6 +109,10 @@ ipcMain.on("open-firmadigital", () => {
   });
 
   firmadigital.loadFile("src/layouts/firmadigital/firmadigital.html");
+
+  firmadigital.on('closed', () => {
+    firmadigital = null
+  })
 });
 // Manejar la selección de archivos
 ipcMain.handle("dialog:openFile", async () => {
@@ -121,5 +126,23 @@ ipcMain.handle("dialog:openFile", async () => {
   } else {
     return filePaths[0];
   }
+});
+
+ipcMain.on("open-cleanDisk", () => {
+  cleanDisk = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      preload: path.join(__dirname, "preload.js"),
+      contextIsolation: true,
+      nodeIntegration: true,
+    },
+  });
+
+  cleanDisk.loadFile("src/layouts/cleanDisk/cleanDisk.html");
+  
+  cleanDisk.on('closed', () => {
+    cleanDisk = null
+  })
 });
 
