@@ -1,9 +1,18 @@
 const { contextBridge, ipcRenderer } = require('electron');
 const { PDFDocument, rgb, StandardFonts } = require('pdf-lib');
 const { exec } = require('child_process');
+const zxcvbn = require('zxcvbn');
 
 contextBridge.exposeInMainWorld('electronAPI', {
   openSecondWindow: () => ipcRenderer.send('open-second-window'),
+  apicontraseña: (password) =>{
+    try {
+      const result = zxcvbn(password);
+      return result
+    } catch (error) {
+      console.log(error)
+    }
+  },
   openfindData: () => ipcRenderer.send('open-find-Data'),
   openfirmadigital: () => ipcRenderer.send('open-firmadigital'),
   opencleanDisk: () => ipcRenderer.send('open-cleanDisk'),

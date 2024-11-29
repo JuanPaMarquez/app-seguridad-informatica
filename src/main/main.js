@@ -44,7 +44,13 @@ ipcMain.on('open-second-window', () => {
       width: 800,
       height: 750,
       maximizable: false,
-      resizable: false
+      resizable: false,
+      webPreferences: {
+        preload: path.join(__dirname, 'preload.js'),
+        nodeIntegration: true,
+        enableRemoteModule: false,
+        contextIsolation: true
+      },
     })
 
     secondWindow.loadFile('src/layouts/veryfypassword/windowverifypassword.html')

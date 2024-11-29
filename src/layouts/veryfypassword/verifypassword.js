@@ -1,16 +1,5 @@
 // Lista básica de palabras de diccionario
-const dictionaryWords = [
-  "almohada",
-  "contraseña",
-  "password",
-  "admin",
-  "welcome",
-  "qwerty",
-  "nombre",
-  "amigo",
-  "seguridad",
-  "fácil"
-];
+let dictionaryWords = [];
 
 // Función para validar la contraseña
 function isSecurePassword(password) {
@@ -31,6 +20,13 @@ function isSecurePassword(password) {
   );
 }
 
+// Cargar el diccionario desde un archivo JSON
+fetch('dictionary.json')
+  .then((response) => response.json())
+  .then((data) => {
+    dictionaryWords = data;
+  })
+  .catch((error) => console.error('Error al cargar el diccionario:', error));
 // Función para verificar palabras de diccionario
 function containsDictionaryWord(password) {
   const lowercasePassword = password.toLowerCase();
@@ -111,6 +107,7 @@ function estimateCrackTime(password) {
   }
 }
 
+
 // Función para determinar el nivel de solidez
 function getPasswordStrength(seconds) {
   if (seconds < 3600) {
@@ -136,7 +133,7 @@ togglePasswordButton.addEventListener("click", () => {
 });
 
 // Evento al hacer clic en el botón "Verificar Contraseña"
-checkButton.addEventListener("click", () => {
+checkButton.addEventListener("click", async () => {
   const password = passwordInput.value;
 
   if (password.trim() === "") {
@@ -146,22 +143,23 @@ checkButton.addEventListener("click", () => {
   }
 
   const { time, seconds } = estimateCrackTime(password);
-  const recommendations = getPasswordRecommendations(password);
+  const recommendations = getPasswordRecommendations(password)
+  const resultados = await window.electronAPI.apicontraseña(password);
   const strength = getPasswordStrength(seconds);
 
   if (isSecurePassword(password)) {
     if (containsDictionaryWord(password)) {
       message.style.color = "#f1c40f";
-      message.innerHTML = `✔️ Tu contraseña es segura, pero detectamos que contiene palabras comunes.<br>🕒 Tiempo estimado para descifrarla: <b>${time}</b><br>🔒 Nivel de contraseña: <b>${strength}</b><br><br>🔍 <b>Recomendaciones:</b><ul>${recommendations
+      message.innerHTML = `✔️ Tu contraseña es segura, pero detectamos que contiene palabras comunes.<br>🕒 Tiempo estimado para descifrarla: <b>${resultados.crack_times_display.offline_slow_hashing_1e4_per_second}</b><br>🔒 Nivel de contraseña: <b>${strength}</b><br><br>🔍 <b>Recomendaciones:</b><ul>${recommendations
         .map((rec) => `<li>${rec}</li>`)
         .join("")}</ul>`;
     } else {
       message.style.color = "#16a085";
-      message.innerHTML = `✔️ Tu contraseña es segura.<br>🕒 Tiempo estimado para descifrarla: <b>${time}</b><br>🔒 Nivel de contraseña: <b>${strength}</b>`;
+      message.innerHTML = `✔️ Tu contraseña es segura.<br>🕒 Tiempo estimado para descifrarla: <b>${resultados.crack_times_display.offline_slow_hashing_1e4_per_second}</b><br>🔒 Nivel de contraseña: <b>${strength}</b>`;
     }
   } else {
     message.style.color = "#e74c3c";
-    message.innerHTML = `❌ Tu contraseña no es segura.<br>🕒 Tiempo estimado para descifrarla: <b>${time}</b><br>🔒 Nivel de contraseña: <b>${strength}</b><br><br>🔍 <b>Recomendaciones:</b><ul>${recommendations
+    message.innerHTML = `❌ Tu contraseña no es segura.<br>🕒 Tiempo estimado para descifrarla: <b>${resultados.crack_times_display.offline_slow_hashing_1e4_per_second}</b><br>🔒 Nivel de contraseña: <b>${strength}</b><br><br>🔍 <b>Recomendaciones:</b><ul>${recommendations
       .map((rec) => `<li>${rec}</li>`)
       .join("")}</ul>`;
   }
