@@ -4,20 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Generar PDF</title>
+  <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
-  <h1>Generar PDF</h1>
-  <form id="pdf-form">
-    <label for="name">Nombre:</label>
-    <input type="text" id="name" placeholder="Tu nombre">
-
-    <label for="device">Dispositivo:</label>
-    <input type="text" id="device" placeholder="Ejemplo: Laptop">
-    
-    <label for="text">Texto:</label>
-    <textarea id="text" placeholder="Escribe algo..."></textarea>
-
-    <button type="button" id="generate">Generar PDF</button>
+    <form id="pdf-form">
+        <h1>Generar Informe Forense</h1>
+    <div class="infoname">
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" placeholder="Nombre del forense">
+    </div>
+    <div>
+        <label for="device">Dispositivo:</label>
+        <input type="text" id="device" placeholder="Ejemplo: Laptop">
+    </div>
+    <div class="infodescripcion" >
+        <label class="etiquetadescripcion" for="text">Descripcion</label>
+        <textarea id="text" placeholder="Descripcion de la actividad forense"></textarea>
+        <button type="button" id="generate">Generar PDF</button>
+    </div>
   </form>
   <script src="generateinforme.js"></script>
 </body>
