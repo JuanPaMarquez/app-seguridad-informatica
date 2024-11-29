@@ -15,12 +15,25 @@ body {
   height: 100%;
 }
 
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('fondo.jpg');
+  background-size: cover;
+  opacity: 0.5; /* Ajusta la opacidad según sea necesario */
+  z-index: -1;
+}
+
 main {
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 button {
@@ -30,6 +43,7 @@ button {
   padding: 10px 20px;
   color: white;
   font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s;
 }
@@ -43,9 +57,13 @@ button:active {
 }
 
 .buttonsTop, .buttonsBottom {
+  width: 100%;
   display: flex;
-  justify-content: center;
-  margin-top: 20px;
+  justify-content: space-between;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .titleApp {

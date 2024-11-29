@@ -12,13 +12,15 @@ let cleanDisk
 function createMainWindow() {
   mainWindow = new BrowserWindow({
     width: 600,
-    height: 400,
+    height: 410,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,
       enableRemoteModule: false,
       contextIsolation: true
-    }
+    },
+    maximizable: false,
+    resizable: false
   })
 
   mainWindow.loadFile('src/main/index.html')
@@ -40,7 +42,9 @@ ipcMain.on('open-second-window', () => {
   if (!secondWindow) {
     secondWindow = new BrowserWindow({
       width: 800,
-      height: 700,
+      height: 750,
+      maximizable: false,
+      resizable: false
     })
 
     secondWindow.loadFile('src/layouts/veryfypassword/windowverifypassword.html')
@@ -62,7 +66,9 @@ ipcMain.on('open-find-Data', () => {
         nodeIntegration: true,
         enableRemoteModule: false,
         contextIsolation: true
-      }
+      },
+      maximizable: false,
+      resizable: false
     })
 
     findData.loadFile('src/layouts/findData/findarchivos.html')
@@ -106,6 +112,8 @@ ipcMain.on("open-firmadigital", () => {
       contextIsolation: true,
       nodeIntegration: true,
     },
+    maximizable: false,
+    resizable: false
   });
 
   firmadigital.loadFile("src/layouts/firmadigital/firmadigital.html");
@@ -137,6 +145,8 @@ ipcMain.on("open-cleanDisk", () => {
       contextIsolation: true,
       nodeIntegration: true,
     },
+    maximizable: false,
+    resizable: false
   });
 
   cleanDisk.loadFile("src/layouts/cleanDisk/cleanDisk.html");
