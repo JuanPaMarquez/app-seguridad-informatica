@@ -2,12 +2,15 @@ const { app, BrowserWindow, ipcMain, dialog } = require('electron')
 const path = require("path");
 const fs = require('fs');
 const { searchFilesInPath } = require("./searchFiles");
+const createPdfinfo = require("./createPdfinfo");
+const { FieldAlreadyExistsError } = require('pdf-lib');
 
 let mainWindow
 let secondWindow
 let findData
 let firmadigital
 let cleanDisk
+let generateInforme;
 
 function createMainWindow() {
   mainWindow = new BrowserWindow({
@@ -160,4 +163,45 @@ ipcMain.on("open-cleanDisk", () => {
     cleanDisk = null
   })
 });
+
+ipcMain.on("open-generateinforme", () => {
+  generateInforme = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
+  });
+
+  generateInforme.loadFile("src/layouts/generateInforme/generateInforme.html");
+
+  generateInforme.on('closed', () => {
+    generateInforme = null
+  })
+});
+
+ipcMain.handle("generate-pdf", async (event, data) => {
+
+  // Mostrar el cuadro de diálogo para seleccionar ubicación
+  const { canceled, filePath } = await dialog.showSaveDialog({
+    title: "Guardar PDF",
+    defaultPath: "InformeForense.pdf",
+    filters: [{ name: "PDF Files", extensions: ["pdf"] }],
+  });
+
+  // Si el usuario cancela el cuadro de diálogo
+  if (canceled || !filePath) {
+    return null;
+  }
+
+  // Crear el PDF en la ubicación seleccionada
+  await createPdfinfo(data, filePath);
+  return filePath;
+});
+
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") app.quit();
+});
+
 

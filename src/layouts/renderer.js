@@ -13,3 +13,7 @@ document.getElementById('open-firmadigital-button').addEventListener('click', ()
 document.getElementById('open-cleanDisk').addEventListener('click', () => {
   window.electronAPI.opencleanDisk()
 })
+
+document.getElementById('open-generateinforme').addEventListener('click',() =>{
+  window.electronAPI.opencreadInforme()
+})

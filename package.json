@@ -37,6 +37,7 @@
   "dependencies": {
     "diskinfo": "^0.0.3",
     "pdf-lib": "^1.17.1",
+    "pdfkit": "^0.15.1",
     "zxcvbn": "^4.4.2"
   }
 }

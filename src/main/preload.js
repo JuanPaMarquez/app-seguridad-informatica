@@ -140,6 +140,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
     await writable.write(blob);
     await writable.close();
   },
+  opencreadInforme: () => ipcRenderer.send('open-generateinforme')
 }
 );
 
