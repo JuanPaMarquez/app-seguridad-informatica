@@ -7,17 +7,22 @@
   <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
+  <div class="fondo">
+    <h1>Agregar Firma Digital</h1>
     <div>
-        <h1>Agregar Firma Digital</h1>
-        <button id="loadPdf">Cargar PDF</button>
-        <br><br>
-        <label>Sube tu firma (imagen):</label><br>
-        <input type="file" id="signatureInput" accept="image/png, image/jpeg" />
-        <br>
-        <button id="clearSignature">Borrar Firma</button>
-        <br><br>
-        <button id="savePdf">Guardar PDF con Firma</button>
+      <button id="loadPdf">Cargar PDF</button>
     </div>
-        <script src="renderfirma.js"></script>
+    <div class="centro">
+      <label>Sube tu firma (imagen):</label>
+      <div class="containerfirma">
+        <input type="file" id="signatureInput" accept="image/png, image/jpeg" />
+        <button id="clearSignature">Borrar Firma</button>
+      </div>
+    </div>
+    <div>
+      <button id="savePdf">Guardar PDF con Firma</button>
+    </div>
+  </div>
+    <script src="renderfirma.js"></script>
 </body>
 </html>

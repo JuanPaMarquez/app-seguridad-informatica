@@ -11,8 +11,8 @@ let cleanDisk
 
 function createMainWindow() {
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 700,
+    width: 600,
+    height: 400,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,
@@ -99,8 +99,8 @@ ipcMain.handle('save-file', async (event, filePath, data) => {
 
 ipcMain.on("open-firmadigital", () => {
   firmadigital = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 600,
+    height: 500,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
       contextIsolation: true,
