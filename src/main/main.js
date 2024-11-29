@@ -147,8 +147,7 @@ ipcMain.on("open-cleanDisk", () => {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
-      contextIsolation: true,
+      contextIsolation: false,
       nodeIntegration: true,
     },
     maximizable: false,

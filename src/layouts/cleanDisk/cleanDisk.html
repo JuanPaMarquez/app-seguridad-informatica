@@ -1,11 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formateo de Disco</title>
+    <title>Gestión de Discos y Particiones</title>
+    <style>
+        /* Opcional: Agregar estilos básicos */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        label {
+            margin-top: 10px;
+            display: block;
+        }
+        select {
+            margin-top: 5px;
+            padding: 5px;
+            width: 200px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        #lblStatus {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 
+    <h1>Gestión de Discos y Particiones</h1>
+
+    <!-- Botones para listar discos y particiones -->
+    <button id="listarDiscosButton">Listar Discos</button>
+    <button id="listarParticionesButton">Listar Particiones</button>
+
+    <!-- Combo para seleccionar discos -->
+    <label for="comboDisks">Selecciona un disco:</label>
+    <select id="comboDisks">
+        <option value="">-- Selecciona un disco --</option>
+    </select>
+
+    <!-- Combo para seleccionar particiones -->
+    <label for="comboPartitions">Selecciona una partición:</label>
+    <select id="comboPartitions">
+        <option value="">-- Selecciona una partición --</option>
+    </select>
+
+    <!-- Mensajes de estado -->
+    <div id="lblStatus"></div>
+
+    <!-- Botón para formatear partición -->
+    <button id="formatearButton">Formatear Partición</button>
+
+    <!-- Botón para formatear todas las particiones -->
+    <button id="formatearTodoButton">Formatear Todas las Particiones</button>
+
+    <script src="rendererClean.js"></script>
 </body>
 </html>
