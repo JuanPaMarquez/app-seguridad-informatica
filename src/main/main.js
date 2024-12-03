@@ -167,7 +167,7 @@ ipcMain.on("open-cleanDisk", () => {
 ipcMain.on("open-generateinforme", () => {
   generateInforme = new BrowserWindow({
     width: 800,
-    height: 600,
+    height: 700,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,

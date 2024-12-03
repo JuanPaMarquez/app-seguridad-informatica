@@ -19,30 +19,29 @@ async function createPdfinfo(data, outputPath) {
       size: fontSize,
       color: rgb(0, 0, 0),
     });
-
-    page.drawText(`Nombre: ${data.name}`, {
+    
+    page.drawText(`Fecha: ${data.date}`, {
       x: 50,
       y: height - 6 * fontSize,
       size: 14,
       color: rgb(0, 0, 0),
     });
-    
-    page.drawText(`Dispositivo: ${data.device}`, {
+
+    page.drawText(`Nombre: ${data.name}`, {
       x: 50,
       y: height - 8 * fontSize,
       size: 14,
       color: rgb(0, 0, 0),
     });
     
-    page.drawText(`Texto: ${data.text}`, {
+    page.drawText(`Dispositivo: ${data.device}`, {
       x: 50,
       y: height - 10 * fontSize,
       size: 14,
       color: rgb(0, 0, 0),
     });
-
-
-    page.drawText(`Fecha: ${data.date}`, {
+    
+    page.drawText(`Texto: ${data.text}`, {
       x: 50,
       y: height - 12 * fontSize,
       size: 14,
