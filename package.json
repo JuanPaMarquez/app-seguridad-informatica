@@ -7,8 +7,8 @@
     "build": "electron-builder"
   },
   "build": {
-    "appId": "com.miempresa.apppruebaelectron",
-    "productName": "AppPruebaJuan",
+    "appId": "com.juysam.appsegurity",
+    "productName": "AppSegurity",
     "directories": {
       "output": "dist"
     },
@@ -17,6 +17,7 @@
       "main": "src/main/main.js"
     },
     "files": [
+      "dist/**/*",
       "main.js",
       "package.json",
       "styles.css",
@@ -25,10 +26,10 @@
       "src/**/*"
     ],
     "win": {
-      "target": "nsis"
+      "icon": "build/logo.ico"
     }
   },
-  "author": "Juan Pablo Marquez",
+  "author": "JUYSAM",
   "license": "ISC",
   "devDependencies": {
     "electron": "^33.2.0",

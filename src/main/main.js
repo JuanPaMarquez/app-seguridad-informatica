@@ -16,6 +16,8 @@ function createMainWindow() {
   mainWindow = new BrowserWindow({
     width: 600,
     height: 410,
+    icon: path.join(__dirname, 'assets', 'logo.ico'),
+    autoHideMenuBar: true, 
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,
@@ -48,6 +50,8 @@ ipcMain.on('open-second-window', () => {
       height: 750,
       maximizable: false,
       resizable: false,
+      autoHideMenuBar: true, 
+      icon: path.join(__dirname, 'assets', 'logo.ico'),
       webPreferences: {
         preload: path.join(__dirname, 'preload.js'),
         nodeIntegration: true,
@@ -70,6 +74,8 @@ ipcMain.on('open-find-Data', () => {
     findData = new BrowserWindow({
       width: 800,
       height: 700,
+      icon: path.join(__dirname, 'assets', 'logo.ico'),
+      autoHideMenuBar: true, 
       webPreferences: {
         preload: path.join(__dirname, 'preload.js'),
         nodeIntegration: true,
@@ -113,17 +119,21 @@ ipcMain.handle('save-file', async (event, filePath, data) => {
 });
 
 ipcMain.on("open-firmadigital", () => {
-  firmadigital = new BrowserWindow({
-    width: 600,
-    height: 500,
-    webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
-      contextIsolation: true,
-      nodeIntegration: true,
-    },
-    maximizable: false,
-    resizable: false
-  });
+  if (!firmadigital){
+    firmadigital = new BrowserWindow({
+      width: 600,
+      height: 500,
+      icon: path.join(__dirname, 'assets', 'logo.ico'),
+      autoHideMenuBar: true, 
+      webPreferences: {
+        preload: path.join(__dirname, "preload.js"),
+        contextIsolation: true,
+        nodeIntegration: true,
+      },
+      maximizable: false,
+      resizable: false
+    });
+  }
 
   firmadigital.loadFile("src/layouts/firmadigital/firmadigital.html");
 
@@ -146,16 +156,20 @@ ipcMain.handle("dialog:openFile", async () => {
 });
 
 ipcMain.on("open-cleanDisk", () => {
-  cleanDisk = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      contextIsolation: false,
-      nodeIntegration: true,
-    },
-    maximizable: false,
-    resizable: false
-  });
+  if (!cleanDisk) {
+    cleanDisk = new BrowserWindow({
+      width: 800,
+      height: 600,
+      icon: path.join(__dirname, 'assets', 'logo.ico'),
+      autoHideMenuBar: true, 
+      webPreferences: {
+        contextIsolation: false,
+        nodeIntegration: true,
+      },
+      maximizable: false,
+      resizable: false
+    });
+  }
 
   cleanDisk.loadFile("src/layouts/cleanDisk/cleanDisk.html");
   
@@ -165,14 +179,18 @@ ipcMain.on("open-cleanDisk", () => {
 });
 
 ipcMain.on("open-generateinforme", () => {
-  generateInforme = new BrowserWindow({
-    width: 800,
-    height: 700,
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-    },
-  });
+  if (!generateInforme) {
+    generateInforme = new BrowserWindow({
+      width: 800,
+      height: 700,
+      icon: path.join(__dirname, 'assets', 'logo.ico'),
+      autoHideMenuBar: true, 
+      webPreferences: {
+        nodeIntegration: true,
+        contextIsolation: false,
+      },
+    });
+  }
 
   generateInforme.loadFile("src/layouts/generateInforme/generateInforme.html");
 
